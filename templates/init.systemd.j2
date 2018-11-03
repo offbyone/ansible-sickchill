@@ -1,0 +1,13 @@
+[Unit]
+Description=SickChill Daemon
+
+[Service]
+User={{ sickchill_user }}
+Group={{ sickchill_group }}
+
+Type=forking
+GuessMainPID=no
+ExecStart=/usr/bin/python2.7 {{ sickchill_src }}/SickBeard.py -q --daemon --nolaunch --datadir={{ sickchill_data }}
+
+[Install]
+WantedBy=multi-user.target

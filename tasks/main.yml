@@ -1,0 +1,60 @@
+---
+- include_tasks: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+- include_tasks: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: 'Install pyopenssl'
+  pip:
+    name: 'pyopenssl'
+    state: 'present'
+
+- name: 'Add sickchill group'
+  group:
+    name: "{{ sickchill_group }}"
+
+- name: 'Add sickchill user'
+  user:
+    name: "{{ sickchill_user }}"
+    group: "{{ sickchill_group }}"
+    create_home: false
+
+- name: 'Install sickchill source'
+  git:
+    repo: "{{ sickchill_repo }}"
+    dest: "{{ sickchill_src }}"
+    version: "{{ sickchill_version }}"
+    update: false
+
+- name: "Update ownership of {{ sickchill_src }}"
+  file:
+    path: "{{ sickchill_src }}"
+    owner: "{{ sickchill_user }}"
+    group: "{{ sickchill_group }}"
+
+- name: "Create data directory {{ sickchill_data }}"
+  file:
+    path: "{{ sickchill_data }}"
+    state: 'directory'
+    owner: "{{ sickchill_user }}"
+    group: "{{ sickchill_group }}"
+
+- name: 'Install systemd service file'
+  template:
+    src: 'templates/init.systemd.j2'
+    dest: '/etc/systemd/system/sickrage.service'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  notify: 'reload-systemd'
+
+- name: 'Enable sickchill service'
+  service:
+    name: 'sickrage'
+    enabled: true
+
+- name: 'Start sickchill'
+  service:
+    name: 'sickrage'
+    state: 'started'

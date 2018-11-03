@@ -1,0 +1,7 @@
+---
+- hosts: 'all'
+  become: true
+  roles:
+    - sickchill
+    # - {role: 'sickchill', sickchill_user: 'pi', sickchill_group: 'pi'}
+    # - {role: 'sickchill', sickchill_version: 'v2018.10.29-2'}

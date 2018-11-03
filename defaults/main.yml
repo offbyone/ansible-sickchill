@@ -1,0 +1,8 @@
+---
+sickchill_user: 'sickchill'
+sickchill_group: 'sickchill'
+
+sickchill_data: "/var/lib/sickchill"
+sickchill_repo: 'https://github.com/SickChill/SickChill.git'
+sickchill_src: '/opt/sickchill'
+sickchill_version: 'master'

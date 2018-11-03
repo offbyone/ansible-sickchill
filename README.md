@@ -1,5 +1,6 @@
 Sickchill
 =========
+[![Build Status](https://travis-ci.org/wilfriedroset/sickchill.svg?branch=master)](https://travis-ci.org/wilfriedroset/sickchill)
 
 Install [sickchill](https://github.com/sickchill/sickchill)
 

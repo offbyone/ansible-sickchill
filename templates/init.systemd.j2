@@ -7,7 +7,7 @@ Group={{ sickchill_group }}
 
 Type=forking
 GuessMainPID=no
-ExecStart=/usr/bin/python2.7 {{ sickchill_src }}/SickBeard.py -q --daemon --nolaunch --datadir={{ sickchill_data }}
+ExecStart=/usr/bin/python3 {{ sickchill_src }}/SickChill.py -q --daemon --nolaunch --datadir={{ sickchill_data }}
 
 [Install]
 WantedBy=multi-user.target

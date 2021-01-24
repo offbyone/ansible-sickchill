@@ -1,9 +1,9 @@
 ---
-- name: 'reload-systemd'
+- name: "reload-systemd"
   systemd:
     daemon_reload: true
 
-- name: 'restart-sickchill'
+- name: "restart-sickchill"
   service:
-    name: 'sickrage'
-    state: 'restarted'
+    name: "sickchill"
+    state: "restarted"

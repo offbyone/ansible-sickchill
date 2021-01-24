@@ -1,19 +1,19 @@
 ---
 # Install first epel respository so we can install python-pip
-- name: 'Add epel repository'
+- name: "Add epel repository"
   yum:
-    name: 'epel-release'
-    state: 'present'
+    name: "epel-release"
+    state: "present"
 
-- name: 'Add epel key'
+- name: "Add epel key"
   rpm_key:
     state: present
-    key: '/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7'
+    key: "/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7"
 
-- name: 'Install SickChill dependencies'
+- name: "Install SickChill dependencies"
   yum:
     name: "{{ packages }}"
-    state: 'present'
+    state: "present"
     update_cache: true
   vars:
     packages:
@@ -26,5 +26,5 @@
       - openssl
       - openssl-devel
       - python-devel
-      - python2
-      - python2-pip
+      - python3
+      - python3-pip

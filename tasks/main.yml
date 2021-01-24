@@ -5,22 +5,22 @@
 - include_tasks: setup-Debian.yml
   when: ansible_os_family == 'Debian'
 
-- name: 'Install pyopenssl'
+- name: "Install pyopenssl"
   pip:
-    name: 'pyopenssl'
-    state: 'present'
+    name: "pyopenssl"
+    state: "present"
 
-- name: 'Add sickchill group'
+- name: "Add sickchill group"
   group:
     name: "{{ sickchill_group }}"
 
-- name: 'Add sickchill user'
+- name: "Add sickchill user"
   user:
     name: "{{ sickchill_user }}"
     group: "{{ sickchill_group }}"
     create_home: false
 
-- name: 'Install sickchill source'
+- name: "Install sickchill source"
   git:
     repo: "{{ sickchill_repo }}"
     dest: "{{ sickchill_src }}"
@@ -36,25 +36,25 @@
 - name: "Create data directory {{ sickchill_data }}"
   file:
     path: "{{ sickchill_data }}"
-    state: 'directory'
+    state: "directory"
     owner: "{{ sickchill_user }}"
     group: "{{ sickchill_group }}"
 
-- name: 'Install systemd service file'
+- name: "Install systemd service file"
   template:
-    src: 'templates/init.systemd.j2'
-    dest: '/etc/systemd/system/sickrage.service'
-    owner: 'root'
-    group: 'root'
-    mode: '0644'
-  notify: 'reload-systemd'
+    src: "templates/init.systemd.j2"
+    dest: "/etc/systemd/system/sickchill.service"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  notify: "reload-systemd"
 
-- name: 'Enable sickchill service'
+- name: "Enable sickchill service"
   service:
-    name: 'sickrage'
+    name: "sickchill"
     enabled: true
 
-- name: 'Start sickchill'
+- name: "Start sickchill"
   service:
-    name: 'sickrage'
-    state: 'started'
+    name: "sickchill"
+    state: "started"

@@ -5,6 +5,10 @@ Description=SickChill Daemon
 User={{ sickchill_user }}
 Group={{ sickchill_group }}
 
+# set a max runtime of 24h for one run to avoid lockups & thread exhaustion
+Restart=always
+RuntimeMaxSec=24h
+
 Type=forking
 GuessMainPID=no
 ExecStart=/usr/bin/python3 {{ sickchill_src }}/SickChill.py -q --daemon --nolaunch --datadir={{ sickchill_data }}
